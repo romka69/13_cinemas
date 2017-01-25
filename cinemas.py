@@ -63,7 +63,7 @@ def collect_info_movies(raw_html):
 def output_10_movies_to_console(movies, count=10):
     best_movies = sorted(movies, key=lambda movie: movie['rate_movie'], reverse=True)
 
-    for movie in movies[:count]:
+    for movie in best_movies[:count]:
         print('Title: {} | Rate: {} | Count votes: {} | Count cinemas: {}'.format(
             movie['title_movie'],
             movie['rate_movie'],
