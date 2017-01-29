@@ -36,8 +36,8 @@ def get_kinopoisk_page(title_movie):
         ).content
 
 
-def is_not_arthouse(movie):
-    return movie['cinemas'] > 5
+def is_not_arthouse(movie, num_artHouse_cinemas=5):
+    return movie['cinemas'] > num_artHouse_cinemas
 
 
 def parse_kinopisk_page(title_movie):
