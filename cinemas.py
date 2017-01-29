@@ -8,7 +8,7 @@ def get_afisha_page():
     return requests.get(afisha_feed).content
 
 
-def parse_afisha_list(raw_html):
+def parse_afisha_page(raw_html):
     soup = BeautifulSoup(raw_html, 'lxml')
     pars_divs = soup.find_all('div', {'class': 'object'})
     
@@ -40,8 +40,7 @@ def is_not_arthouse(movie, num_arthouse_cinemas=5):
     return movie['cinemas'] > num_arthouse_cinemas
 
 
-def parse_kinopisk_page(title_movie):
-    raw_html = get_kinopoisk_page(title_movie)
+def parse_kinopisk_page(raw_html):
     soup = BeautifulSoup(raw_html, 'lxml')
     rate_movie_html = soup.find('span', {'class': 'rating_ball'})
     rate_movie = float(rate_movie_html.text) if rate_movie_html else 0
@@ -53,9 +52,11 @@ def parse_kinopisk_page(title_movie):
 def collect_info_movies(raw_html):
     movies = []
 
-    for movie in parse_afisha_list(raw_html):
+    for movie in parse_afisha_page(raw_html):
+        
         if is_not_arthouse(movie):
-            rate_movie = parse_kinopisk_page(movie['title_movie'])
+            kinopoisk_page = get_kinopoisk_page(movie['title_movie'])
+            rate_movie = parse_kinopisk_page(kinopoisk_page)
             movies.append({
                 'title_movie': movie['title_movie'],
                 'cinemas': movie['cinemas'],
