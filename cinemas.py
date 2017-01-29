@@ -36,6 +36,10 @@ def get_kinopoisk_page(title_movie):
         ).content
 
 
+def is_not_arthouse(movie):
+    return movie['cinemas'] > 5
+
+
 def parse_kinopisk_page(title_movie):
     raw_html = get_kinopoisk_page(title_movie)
     soup = BeautifulSoup(raw_html, 'lxml')
@@ -47,16 +51,17 @@ def parse_kinopisk_page(title_movie):
 
 
 def collect_info_movies(raw_html):
-    movies = list()
+    movies = []
 
     for movie in parse_afisha_list(raw_html):
-        rate_movie = parse_kinopisk_page(movie['title_movie'])
-        movies.append({
-            'title_movie': movie['title_movie'],
-            'cinemas': movie['cinemas'],
-            'rate_movie': rate_movie['rate_movie'],
-            'votes_movie': rate_movie['votes_movie']
-        })
+        if is_not_arthouse(movie):
+            rate_movie = parse_kinopisk_page(movie['title_movie'])
+            movies.append({
+                'title_movie': movie['title_movie'],
+                'cinemas': movie['cinemas'],
+                'rate_movie': rate_movie['rate_movie'],
+                'votes_movie': rate_movie['votes_movie']
+            })
     return movies
 
 
