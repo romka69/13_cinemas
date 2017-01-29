@@ -1,6 +1,6 @@
 # Cinemas
 
-The script print 10 popular movies which are presented on [www.afisha.ru](http://www.afisha.ru/msk/schedule_cinema/) with a rating based on an evaluation of [www.kinopoisk.ru](https://www.kinopoisk.ru).
+The script print 10 popular movies which are presented on [www.afisha.ru](http://www.afisha.ru/msk/schedule_cinema/) (for Moscow) with a rating based on an evaluation of [www.kinopoisk.ru](https://www.kinopoisk.ru).
 
 Usage
 -----
