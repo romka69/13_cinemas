@@ -27,7 +27,6 @@ def get_kinopoisk_page(title_movie):
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'\
         ' (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
     }
-    time.sleep(6)
     return requests.get(
         kinopoisk_url,
         params=payload,
@@ -53,8 +52,8 @@ def collect_info_movies(raw_html):
     movies = []
 
     for movie in parse_afisha_page(raw_html):
-        
         if is_not_arthouse(movie):
+            time.sleep(6)
             kinopoisk_page = get_kinopoisk_page(movie['title_movie'])
             rate_movie = parse_kinopisk_page(kinopoisk_page)
             movies.append({
